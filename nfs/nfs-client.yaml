@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv
+spec:
+  capacity:
+    storage: 1Gi    #指定PV的容量为1GB
+  accessModes:
+    - ReadWriteOnce  #表示PV能为read-write模式mount到单个节点，ReadOnlyMany表示只读，mount到多个节点，ReadWriteMany表示读写可以mount到多节点
+  persistentVolumeReclaimPolicy: Recycle  #PV的回收策略，清除PV中的数据，Retain表示管理员手工回收
+  storageClassName: nfs-storage    #指定PV的class为nfs-storage，相当于为PV设置了一个分类，PVC可以指定class申请相应的PV
+  nfs:
+    path: /nfsdata/share    #指定PV在NFS服务器上对应的目录
+    server: 192.168.64.19

@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: demo
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+  - match: Host(`traefik.example.com`) && PathPrefix(`/`)
+    kind: Rule
+    services:
+    - name: demo
+      port: 80
